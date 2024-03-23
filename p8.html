@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+*{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container{
+    height: 100vh;
+    width:100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: darkolivegreen;
+}
+.box{
+    height:20rem;
+    width:30rem;
+    background-color: bisque;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 12px;
+}
+.box div{
+    padding:0.2rem;
+    margin: 2px;
+}
+.question{
+    padding:0.5rem ;
+}
+#btn{
+    margin: 5px;
+    color:white;
+    background-color: darkolivegreen;
+    padding: 0.3rem;
+    border-radius: 12px;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="box" id="box">
+            <div class="question"  id="que">question
+            </div>
+            <hr>
+       
+               <div> <input type="radio" class="opt" value="a" name="ans" id="op1"><label for="op1" id="o1">OPtion1</label></div><hr>
+       
+            
+               <div> <input type="radio" class="opt" value="b" name="ans" id="op2"><label for="op2"id="o2">OPtion2</label></div><hr>
+     
+         
+                <div> <input type="radio" class="opt" value="c" name="ans" id="op3"><label for="op3"id="o3">OPtion3</label></div><hr>
+           
+           
+                    <div> <input type="radio" class="opt" value="d" name="ans" id="op4"><label for="op4" id="o4">OPtion4</label></div><hr>
+                
+                <button id="btn">Submit</button>
+            
+        </div>
+    </div>
+    
+</body>
+<script>
+    let q= document.getElementById("que");
+    let a= document.getElementById("o1");
+    let b= document.getElementById("o2");
+    let c= document.getElementById("o3");
+    let d= document.getElementById("o4");
+    let btn= document.getElementById("btn");
+    let correct=0;
+    let incorrect=0;   
+    let options=document.querySelectorAll(".opt") ;
+
+    const question=[{
+        'que':"Which of the following is a markup language?",
+        'a':'Java',
+        'b':"HTML",
+        "c":"Javascript",
+        "d":"Python",
+        "cor":"b"
+    },
+    {
+        'que':"Which of the following is a scripting language?",
+        'a':'Java',
+        'b':"HTML",
+        "c":"Javascript",
+        "d":"PhP",
+        "cor":"c"
+    },
+    {
+        'que':"Which of the following is a language?",
+        'a':'Java',
+        'b':"HTTP",
+        "c":"WEB",
+        "d":"PRIME",
+        "cor":"a"
+    }
+]
+let index=0;
+
+function getQuestion(){
+    emptyDefaultChecked();
+    if(index>=question.length){
+        reset();
+    }
+    else{
+    const data=question[index];
+    q.innerHTML=`<h1>${index+1}).${data.que}</h1>`
+    a.innerText=data.a
+    b.innerText=data.b
+    c.innerText=data.c
+    d.innerText=data.d}
+
+
+}
+getQuestion()
+
+function emptyDefaultChecked(){
+    options.forEach((o)=>{
+        o.checked=false;
+    })
+}
+
+function findScore(){
+    let options=document.querySelectorAll(".opt") ;
+    let answer;
+    options.forEach((o)=>{
+        if(o.checked){
+            answer=o.value;
+            console.log(answer)
+        }
+
+    })
+    
+    return answer;
+}
+
+function calScore(){
+    const ans=findScore();
+   
+    
+    if(ans==question[index].cor){
+        correct++;
+    }
+    else{
+        incorrect++;
+    }
+
+    console.log(correct ,incorrect)
+}
+
+
+function reset(){
+    document.getElementById("box");
+    box.innerHTML=`<h1> Khatamm Taaataaaa Byee byeee</h1> 
+   <h2> ${correct}/${question.length} are correct!!!!!!</h2>
+  <h3> Thankyou for playing.......</h3>
+     `
+}
+btn.addEventListener('click',()=>{
+   
+    calScore();
+    index++;
+    getQuestion();
+
+})
+</script>
+</html>

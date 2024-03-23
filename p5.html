@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .main{
+            width:100%;
+            height:100vh;
+            background: linear-gradient(to right,white, rgb(250, 167, 181), rgb(247, 247, 166));
+        }
+      .overlay{
+        width:100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.342);
+        display: flex;
+        color: rgb(255, 255, 255);
+        text-shadow: 0px 0px 3px black;
+        flex-direction: column;
+      }
+      h2,h3{
+        font-size:3rem;
+        text-align: center;
+      }
+      .col{
+        width:1000px;
+        height: 100px;
+        margin: 10px auto;
+       
+        display: flex;
+        justify-content: space-evenly;
+      }
+      .i{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+      }
+      .ip{
+        height: 70%;
+        
+        background-color: transparent;
+        border: none;
+        border-radius: 10%;
+        box-shadow: 0px 0px 4px white;
+        color: white;
+        text-align: center;
+       font-size: 1rem;
+      }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <div class="overlay">
+            <h2>we are coming soon</h2>
+            <h3 id="dt"> </h3>
+            <div class="col">
+               <div class="i" id="i1"><input type="text" class="ip" id="ip1" readonly> <label for="i1">days</label></div>
+               <div class="i" id="i2"> <input type="text" class="ip" id="ip2" readonly><label for="i2">hours</label></div>
+               <div class="i" id="i3"> <input type="text" class="ip" id="ip3" readonly><label for="i3">minutes</label></div>
+               <div class="i" id="i4"> <input type="text" class="ip" id="ip4" readonly><label for="i4">seconds</label></div>
+            </div>
+        </div>
+
+    </div>
+</body>
+<script>
+    const date="8 march 2024 10:00 AM"
+    document.getElementById("dt").innerHTML=date;
+    function update(){
+        const dt=new Date(date);
+   
+        const now= new Date();
+        const diff=(dt-now)/1000;
+       
+        document.getElementById('ip1').value=Math.floor(diff/3600/24);
+        document.getElementById('ip2').value=Math.floor(diff/3600)%24;
+        document.getElementById('ip3').value=Math.floor(diff/60)%60;
+        document.getElementById('ip4').value=Math.floor(diff)%60;
+    }
+    update()
+
+    setInterval(()=>{
+        update()},1000)
+</script>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+           
+            
+        }
+        #container{
+            height: 100vh;
+            display: flex;
+            background-color: rgb(182, 148, 214);
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-width: 300px;
+            min-height: 200px;
+            
+        }
+        #area{
+            margin: 20px;
+            background-color: blanchedalmond;
+            width: 50%;
+            height: 60%;
+           display: flex;
+           flex-direction: column;
+           align-items: center;
+           justify-content: center;
+           border-radius: 2rem;
+           border: 2px solid rgb(252, 218, 167);
+           box-shadow: 0px 0px 13px gold;
+        }
+        #tarea{
+            height: 60%;
+            width: 60%;
+            
+            background-color: blanchedalmond;
+            border: 2px solid rgb(252, 218, 167) ;
+            resize: none;
+            
+        }
+        .correct{
+            color:green;
+        }
+        .incorrect{
+            color: red;
+        }
+        #sub{
+            background-color: antiquewhite;
+            border: 2px solid rgb(252, 218, 167) ;
+            margin: 12px;
+            padding: 3px;
+            transition: all 2s;
+        }
+        
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1 id="timer">0</h1>
+        <div id="area">
+            <div id="quote">
+            </div>
+            <textarea id="tarea" rows="10" cols="40"></textarea>
+            <button id="sub">Finish!!!!</button>
+        
+        </div>
+    </div>
+    
+</body>
+<script>
+    let text=document.getElementById("quote");
+    let inp =document.getElementById("tarea");
+    let timer= document.getElementById("timer");
+    let score=0;
+    let interval;
+    let b=document.getElementById("sub");
+const url_q='http://api.quotable.io/random';
+b.addEventListener("click",()=>{
+    b.style.backgroundColor="aliceblue";
+    timer.style.display="none"
+    timer.innerHTML="<h1> GAME FINISHED!!!!!</h1>"
+    inp.value="balle balle te shawa shawa........................................";
+    text.innerHTML=`<h1> GAME FINISHED!!!!!</h1><h2>You spelled ${score} sentences correctly!!!!<h2>`;})
+
+inp.addEventListener('input',()=>{
+    let arrq= document.querySelectorAll('span');
+    let arri=inp.value.split('');
+    let correct=true;
+    
+   arrq.forEach((x,i)=>{
+    if(arri[i]==null){
+        x.classList.remove("correct");
+        x.classList.remove("incorrect");
+        correct=false;
+
+    }
+    
+    else if(x.innerText===arri[i]){
+        x.classList.remove("incorrect");
+        x.classList.add("correct");
+        
+
+    }
+        else{
+            x.classList.remove("correct");
+        x.classList.add("incorrect");
+        correct=false;
+
+        }
+   })
+   if(correct){
+    update();
+    score+=1;
+   }
+})
+let starttime;
+function reset(){
+    
+    timer.innerHTML="0";
+    inp.value="";
+    text.innerHTML="";
+   starttime= new Date();
+   interval=setInterval(()=>{
+    timer.innerText=setTimer();
+   },1000)
+  
+    
+}
+function setTimer(){
+return(parseInt((new Date()- starttime)/1000))
+}
+function fetchUrl(){
+    
+    return(fetch(url_q).then((response)=>response.json()).then(data=>data.content));
+    
+}
+async function update(){
+    reset();
+    
+    let res= await fetchUrl();
+    console.log(res)
+    res.split("").forEach(e => {
+        let c= document.createElement('span');
+        c.innerText=e;
+        text.appendChild(c);    
+    });
+    
+}
+update();
+</script>
+</html>

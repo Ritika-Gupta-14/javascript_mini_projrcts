@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+*{
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.container{
+    background-color: rgb(48, 44, 44);
+    padding: 2rem;
+    margin: 3rem;
+}
+.draggable{
+    background-color: antiquewhite;
+    margin:1rem;
+    padding: 1rem;
+    cursor: move;
+}
+.draggable.dragging{
+    opacity: 0.5;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="draggable" draggable="true">1</div>
+        <div class="draggable" draggable="true">2</div>
+    </div>
+    <div class="container">
+        <div class="draggable" draggable="true">3</div>
+        <div class="draggable" draggable="true">4</div>
+    </div>
+    
+</body>
+<script>
+let draggable= document.querySelectorAll('.draggable');
+let containers= document.querySelectorAll('.container');
+
+draggable.forEach((x)=>{
+x.addEventListener('dragstart',()=>{
+    x.classList.add("dragging")
+})
+x.addEventListener('dragend',()=>{
+    x.classList.remove("dragging")
+})
+})
+
+
+
+containers.forEach((c)=>{
+c.addEventListener('dragover',(e)=>{
+    e.preventDefault();
+    const afterElement= getDragAfterElement(c, e.clientY);
+    console.log(afterElement)
+    if (afterElement==null){
+    c.appendChild(document.querySelector(".dragging"));}
+    else{
+        c.insertBefore(document.querySelector(".dragging"),afterElement);
+    }
+})
+})
+
+
+function getDragAfterElement(c,y){
+const elements=[...c.querySelectorAll('.draggable:not(.dragging)')];
+return elements.reduce((closest,child)=>{
+    const box= child.getBoundingClientRect();
+    const offset=y-box.top- box.height/2;
+   
+   if(offset<0 && offset>closest.offset){
+    return {offset:offset, element:child }
+   }
+  else{
+    return closest
+  }
+},{offset:Number.NEGATIVE_INFINITY}).element
+
+}
+
+
+</script>
+</html>

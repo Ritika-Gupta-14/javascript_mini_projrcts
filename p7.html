@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title> 
+    <style>
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.container{
+    height: 100vh;
+    width: 100%;
+    background-color: rgb(70, 18, 18);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.box{
+  
+    background-color: rgb(235, 212, 183);
+    height: 20rem;
+    width: 25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.box div{
+    
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content:center;
+}
+.left{
+    align-self: flex-start;
+}
+.right{
+    align-self: flex-end;
+}
+#btn{
+    background-color: rgb(85, 21, 21);
+    color: rgb(245, 239, 232);
+    padding: 5px;
+    box-shadow: 0 0 2px rgb(0, 0, 0);
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="box">
+                 <div> <input type="text" id="res"></div>
+                <div>
+                   <div class="left"> <label for="len" class="left">Length</label></div><div class="right"><input type="number" max="30" min="2" value="10" id="len" class="right"></div>
+               </div>
+               <div>
+                <div class="left"><label for="uc" class="left">Contains Uppercase</label></div><div class="right"><input type="checkbox" checked id="uc" class="right"></div>
+                </div>
+                <div>
+                    <div class="left"><label for="lc" class="left">Contains Lowercase</label></div><div class="right"><input type="checkbox" id="lc" class="right"></div>
+               </div>
+               <div>
+                <div class="left"><label for="num" class="left">Contains Numbers</label></div><div class="right"><input type="checkbox" id="num" class="right"></div>
+                </div>
+               <div>
+                <div class="left">  <label for="sc" class="left">Contains Special Characters</label></div><div class="right"><input type="checkbox" id="sc" class="right"></div>
+                </div>
+                <div>
+                    <input type="button" id="btn" value="click to generate!!!!">
+               </div>
+        </div>
+     </div>
+    
+</body>
+<script>
+const res=document.getElementById("res")
+const uc=document.getElementById("uc");
+const lc=document.getElementById("lc");
+const num=document.getElementById("num");
+const sc=document.getElementById("sc");
+const len= document.getElementById("len");
+
+const upperSet="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const lowerSet="abcdefghijklmnopqrstuvwxyz"
+const numSet="1234567890"
+const specialSet="!@#$%^&*()_-"
+
+function genpw(password=""){
+    if(uc.checked){
+       password+=upperSet[Math.floor(Math.random()*upperSet.length)]
+    }
+    if(lc.checked){
+       password+=lowerSet[Math.floor(Math.random()*lowerSet.length)]
+    }
+    if(num.checked){
+       password+=numSet[Math.floor(Math.random()*numSet.length)]
+    }
+    if(sc.checked){
+       password+=specialSet[Math.floor(Math.random()*specialSet.length)]
+    }
+
+    if(password.length<len.value){
+        return(genpw(password));
+    }
+
+    if (password.length>len.value){
+        password=password.substring(0,len.value);
+    }
+    password=shuffle(password)
+    res.value=password
+
+}
+
+function shuffle(a){
+    let arr=a.split("");
+    for(let i=0;i<arr.length;i++){
+      let j= Math.floor(Math.random()*arr.length)
+        let temp= arr[i];
+        arr[i]=arr[j];
+        arr[j]=temp;
+    }
+    return (arr.join(""));
+}
+document.getElementById("btn").addEventListener('click',()=>{
+  genpw()
+   
+})
+
+</script>
+</html>

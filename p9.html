@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head><style>
+*{
+    margin:0;
+    padding:0;
+}
+body{
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+}
+div{
+    font-size: 3rem;
+    color:cadetblue;
+}
+#sp{
+    color:rgb(177, 147, 107);
+   
+}
+#sp::after{
+    display: inline-block;   
+    content:"";
+    background-color:rgb(177, 147, 107);
+     height: 2rem;
+    width:2px;
+    margin-left:5px;
+    
+} 
+</style>
+<body>
+    <div>I'm a <span id="sp"></span></div>
+    
+</body>
+<script>
+    let sp= document.getElementById("sp");
+    const wordsArr=["Coder","Developer","Student"];
+    let wordIndex=0;
+    let wordsArrIndex=0;
+    let revWrite=false;
+    let skip=0;
+    debugger
+    const id=setInterval(()=>{
+        if(skip>0){
+            skip--;
+            return;
+        }
+
+        if (wordsArrIndex>wordsArr.length-1){
+            wordsArrIndex=0
+        }
+        if(wordIndex>wordsArr[wordsArrIndex].length-1){
+            revWrite++
+        }
+        if(!revWrite){
+            skip=4;
+            sp.innerText=sp.innerText+wordsArr[wordsArrIndex][wordIndex]
+            wordIndex++;
+        }else{
+            sp.innerText=sp.innerText.slice(0,wordIndex);
+            wordIndex--
+        }
+        if(wordIndex<0){
+            revWrite--
+            wordIndex++
+            wordsArrIndex++
+        }
+        
+
+
+    },50)
+
+
+    
+
+</script>
+</html>

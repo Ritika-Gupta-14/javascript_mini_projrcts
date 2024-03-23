@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+
+#clock{
+    margin: auto;
+    position: relative;
+    height: 40vw;
+    width: 40vw;
+    background-image: url(/pngegg.png);
+    background-size: 100%;
+    
+   
+}
+
+#mi, #hr, #sec{
+    position: absolute;
+    background-color: black;
+    width: 1%;
+    transition: all 0.001s;
+    transform-origin:bottom;
+    border-radius: 50%;
+    
+}
+
+#mi{
+    height: 30%;
+    top: 20%;
+    left: 49.3%;
+    
+}
+#hr{
+    height: 24%;
+    top: 26%;
+    left: 49.3%;
+}
+#sec{
+    height: 35%;
+    top: 15.2%;
+    left: 49.3%;
+  
+}
+    </style>
+</head>
+<body><div>
+    <div id="clock">
+        <div id="mi"></div>
+        <div id="hr"></div>
+        <div id="sec"></div>
+    </div>
+    
+</div>
+    
+    
+</body>
+<script>
+setInterval(()=>{
+    let de = new Date();
+    let h= de.getHours();
+    let m= de.getMinutes();
+    let s=de.getSeconds();
+
+    if(h>12){h-=12;}
+    let hr= 30*h+0.5*m+0.0083*s;
+    let mr= 6*m+0.1*s;
+    let sr= 6*s;
+
+    document.getElementById("hr").style.transform= `rotate(${hr}deg)`;
+    document.getElementById("mi").style.transform= `rotate(${mr}deg)`;
+    document.getElementById("sec").style.transform=` rotate(${sr}deg)`;
+
+},1000)
+</script>
+</html>

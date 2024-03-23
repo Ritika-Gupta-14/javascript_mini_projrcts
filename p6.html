@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            height: 100vh;
+            width:100%;
+            background-color: aquamarine;
+            transition: all 1.2s;
+            
+        }
+        .container{
+            top: 30%;
+            left: 30%;
+            position: absolute;
+            height: 8rem;
+            width: 25rem;
+           
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            align-items: center;
+            background-color: rgb(254, 255, 255);
+            border-radius: 2%;
+            border:2px solid black;
+        }
+        #bbt{
+            background-color: black;
+            color: white;
+            width:80%;
+            height:20%;
+            font-size: larger;
+            border-radius: 2px;
+            
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+      
+            
+            <h2 id="code">gg</h2>
+    
+            <button type="button" id="bbt"> Click me!!!! </button>
+             
+    </div>
+</body>
+<script>
+ 
+    
+    const getColor =()=>{
+        //max possible clr are ffffff that is 16777215 in decimal
+        const rno= Math.floor(Math.random()*16777215);
+        const cc="#"+rno.toString(16);
+        document.getElementById("code").innerText=cc;
+        document.body.style.backgroundColor=cc;      
+        navigator.clipboard.writeText(cc)
+        
+    }
+getColor()
+document.getElementById("bbt").addEventListener('click',getColor)
+</script>
+</html>
